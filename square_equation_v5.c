@@ -49,7 +49,7 @@ int Solve_square(double a, double b, double c, double *x1, double *x2){
     *x2 = (-b + sqrt(D)) / (2 * a);
     return 2;
   }
-  else if (fabs(D) < PRECISION_VALUE){
+  else if (fabs(D) < PRECISION_VALUE) {
     *x1 = -b / (2 * a);
     return 1;
   }
@@ -99,7 +99,7 @@ int main(){
 
   int number_of_roots = Get_Roots(a, b, c, &x1, &x2);
 
-  switch(number_of_roots){
+  switch (number_of_roots) {
     case 0: printf("No roots found");
       break;
 
