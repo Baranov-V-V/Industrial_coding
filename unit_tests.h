@@ -30,15 +30,15 @@ void Test__Solve_linear(void){
   assert( Solve_linear(0, -1, &x) == 0 );
   {
   root_number = Solve_linear(2, 6, &x);
-  assert(root_number == 1 && x == 3);
+  assert( root_number == 1 && x == 3 );
   }
   {
   root_number = Solve_linear(-2, 6, &x);
-  assert(root_number == 1 && x == -3);
+  assert( root_number == 1 && x == -3 );
   }
   {
   root_number = Solve_linear(-2, -6, &x);
-  assert(root_number == 1 && x == 3);
+  assert( root_number == 1 && x == 3 );
   }
 
   fprintf(stderr, "Test Solve_linear OK\n");
@@ -52,11 +52,11 @@ void Test__Solve_square(void){
   /// test general
   {
   root_number = Solve_square(1, -7, 12, &x1, &x2);
-  assert(root_number == 2 && (x1 * x2 == 12) && (x1 + x2) == 7);
+  assert( root_number == 2 && (x1 * x2 == 12) && (x1 + x2) == 7 );
   }
   {
   root_number = Solve_square(1, -4, 4, &x1, &x2);
-  assert(root_number == 1 && (x1 == 2));
+  assert( root_number == 1 && (x1 == 2) );
   }
 
   /// test b = 0
@@ -78,19 +78,19 @@ void Test_All(void){
 }
 ///Тесты корректности данных для квадратного уравнения
 Test_Correct_Square(double a, double b, double c, double *x1, double *x2){
-  assert(isfinite(a));
-  assert(isfinite(b));
-  assert(isfinite(c));
+  assert( isfinite(a) );
+  assert( isfinite(b) );
+  assert( isfinite(c) );
 
-  assert(x1 != x2);
-  assert(x1 != NULL);
-  assert(x2 != NULL);
+  assert( x1 != x2 );
+  assert( x1 != NULL );
+  assert( x2 != NULL );
 }
 
 ///Тесты корректности данных для линейного уравнения
 Test_Correct_Linear(double a, double b, double *x1){
-  assert(isfinite(a));
-  assert(isfinite(b));
+  assert( isfinite(a) );
+  assert( isfinite(b) );
 
-  assert(x1 != NULL);
+  assert( x1 != NULL );
 }
