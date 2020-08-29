@@ -7,26 +7,6 @@
 #define PRECISION_VALUE 1e-6
 #define TRUE_CORRECT_NUMBERS_COUNT 3
 
-
-
-Test_Correct_Square(double a, double b, double c, double *x1, double *x2){
-  assert(isfinite(a));
-  assert(isfinite(b));
-  assert(isfinite(c));
-
-  assert(x1 != x2);
-  assert(x1 != NULL);
-  assert(x2 != NULL);
-}
-
-Test_Correct_Linear(double a, double b, double *x1){
-  assert(isfinite(a));
-  assert(isfinite(b));
-
-  assert(x1 != NULL);
-}
-
-
 /*!
 Ищет решения линейного уравнения вида "a*х - b = 0"
 \param[in] a коэффицент перед х
