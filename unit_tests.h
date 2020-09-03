@@ -9,9 +9,9 @@ int Get_Roots(double, double, double, double*, double*);
 int Solve_square(double, double, double, double*, double*);
 int Solve_linear(double, double, double*);
 
-#define ASSERT_EQUAL(x, y, f) if(x != y){                                                                                                       \
-    fprintf(stderr, "Assert Failed: in file %s in line %d, %d != %d \n", __FILE__, __LINE__, x, y);             \
-    f++;                                                                                                                                                                        \
+#define ASSERT_EQUAL(x, y, f) if(x != y){                                                                      \
+    fprintf(stderr, "Assert Failed: in file %s in line %d, %d != %d \n", __FILE__, __LINE__, x, y);            \
+    f++;                                                                                                       \
 }                                                                                                                                                                                  \
 
 ///Вызывает все тесты для функции поиска корней уравнения
@@ -86,7 +86,7 @@ void Test__Solve_square(void) {
     }
 
     /// test b = 0
-    ASSERT_EQUAL( Solve_square(1, 0, 4, &x1, &x2), 2, error_count );
+    ASSERT_EQUAL( Solve_square(1, 0, 4, &x1, &x2), 0, error_count );
     ASSERT_EQUAL( Solve_square(1, 0, -4, &x1, &x2), 2, error_count );
 
     /// test c = 0
