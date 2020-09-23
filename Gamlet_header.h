@@ -10,10 +10,10 @@
 #include <assert.h>
 #include <stdarg.h>
 
-#define ASSERT_ERROR(x, y, message) if(x == y) {                                                                          \
+#define ASSERT_ERROR(x, y, message) if(x == y) {                                                   \
     fprintf(stderr, "Assert Failed %s : " #x " == " #y " in line %d\n", message, __LINE__);        \
-    exit(1);                                                                                                                                                      \
-}                                                                                                                                                                       \
+    exit(1);                                                                                       \
+}                                                                                                  \
 
 
 /*!
