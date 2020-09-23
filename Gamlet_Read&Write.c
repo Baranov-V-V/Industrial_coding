@@ -44,7 +44,7 @@ char* Get_Text(char* file_name, char* data, int* text_size) {
 
     ASSERT_ERROR(fp, NULL, "Cannot open file");
 
-    data = (char*) calloc(file_length, sizeof(char));
+    data = (char*) calloc(file_length + 1, sizeof(char));
 
     ASSERT_ERROR(data, NULL, "Can not allocate memory!");
 
