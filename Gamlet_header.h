@@ -8,11 +8,12 @@
 #include <ctype.h>
 #include <sys\stat.h>
 #include <assert.h>
+#include <stdarg.h>
 
-#define ASSERT_ERROR(x, y, message) if(x == y) {                                                   \
+#define ASSERT_ERROR(x, y, message) if(x == y) {                                                                          \
     fprintf(stderr, "Assert Failed %s : " #x " == " #y " in line %d\n", message, __LINE__);        \
-    exit(1);                                                                                       \
-}                                                                                                  \
+    exit(1);                                                                                                                                                      \
+}                                                                                                                                                                       \
 
 
 /*!
@@ -120,9 +121,8 @@ int Reversed_String_comp(char* lhs, char* rhs);
 void Sort_Write(char** line_pointers, int lines_count, char type_sort, char* file_name, char* type_write);
 
 /*!
-Очищает память, выделенную динамически
-\param[in] data - буфер с текстом
-\param[in] lines_count массив указателей
-\return void
+Функция очистки динамически выделенной памяти
+\param[in] query_count количество аргументов на очистку памяти
+return void
 */
-void FreeALL(char* data, char** p_arr);
+void FreeALL(int query_count, ...);

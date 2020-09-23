@@ -45,9 +45,17 @@ void Make_Line_pointers(char** line_pointers, char* text, size_t text_size) {
 
 }
 
-void FreeALL(char* data, char** p_arr) {
+void Free_All(int query_count, ...) {
 
-    free(data);        data = NULL;
-    free(p_arr);    p_arr = NULL;
+    va_list ap;
+    va_start(ap, query_count);
+
+    int i = 0;
+    for (i; i < query_count; i++) {
+        void* tmp = va_arg(ap, void*);
+        free(tmp);
+    }
+
+    va_end(ap);
 
 }
