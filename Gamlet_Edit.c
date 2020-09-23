@@ -31,7 +31,8 @@ size_t Get_Lines_Count(char* text, size_t text_size) {
 void Make_Line_pointers(char** line_pointers, char* text, size_t text_size) {
     assert(line_pointers != NULL);
     assert(text != NULL);
-
+    assert(text_size >= 0);
+    
     int i = 0;
     int line_no = 0;
     line_pointers[line_no++] = text;
