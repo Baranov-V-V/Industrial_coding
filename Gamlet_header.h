@@ -9,10 +9,10 @@
 #include <sys\stat.h>
 #include <assert.h>
 
-#define ASSERT_ERROR(x, y, message) if(x == y) {                                                                          \
+#define ASSERT_ERROR(x, y, message) if(x == y) {                                                   \
     fprintf(stderr, "Assert Failed %s : " #x " == " #y " in line %d\n", message, __LINE__);        \
-    exit(1);                                                                                                                                                      \
-}                                                                                                                                                                       \
+    exit(1);                                                                                       \
+}                                                                                                  \
 
 
 /*!
@@ -120,12 +120,9 @@ int Reversed_String_comp(char* lhs, char* rhs);
 void Sort_Write(char** line_pointers, int lines_count, char type_sort, char* file_name, char* type_write);
 
 /*!
-Вызывает функции Quick_Sort и Write_Sorted_Text для сортировки вывода текста
-\param[in] line_pointers массив указателей, из которого будут печатся строки
-\param[in] lines_count количество строк для вывода
-\param[in] type_sort тип сортировки: "Normal" для обычной и "Reserved" для обратной
-\param[in] file_name имя файла для вывода
-\param[in] type_wrор
+Очищает память, выделенную динамически
+\param[in] data - буфер с текстом
+\param[in] lines_count массив указателей
 \return void
 */
 void FreeALL(char* data, char** p_arr);
