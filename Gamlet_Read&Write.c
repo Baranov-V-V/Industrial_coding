@@ -4,7 +4,8 @@
 void Write_Sorted_Text(char** line_pointers, size_t lines_count, char* file_name, char* type) {
     assert(file_name != NULL);
     assert(type != NULL);
-
+    assert(lines_count >= 0);
+    
     FILE* fp = fopen(file_name, type);
 
     ASSERT_ERROR(fp, NULL, "Cannot open file")
@@ -21,7 +22,8 @@ void Write_Sorted_Text(char** line_pointers, size_t lines_count, char* file_name
 void Write_Text(char* text, size_t text_size, char* file_name, char* type) {
     assert(file_name != NULL);
     assert(type != NULL);
-
+    assert(text_size >= 0);
+    
     FILE* fp = fopen(file_name, type);
 
     ASSERT_ERROR(fp, NULL, "Cannot open file");
@@ -33,7 +35,7 @@ void Write_Text(char* text, size_t text_size, char* file_name, char* type) {
 
 char* Get_Text(char* file_name, char* data, int* text_size) {
     assert(file_name != NULL);
-
+    
     struct stat info;
     stat(file_name, &info);
     size_t file_length = info.st_size;
@@ -47,11 +49,8 @@ char* Get_Text(char* file_name, char* data, int* text_size) {
     ASSERT_ERROR(data, NULL, "Can not allocate memory!");
 
     int obj_read = fread(data, sizeof(char), file_length, fp);
-    //fprintf(stderr, "done1\n");
-    data[obj_read - 1] = '\0';
+    data[obj_read] = '\0';
     *text_size = obj_read;
-    //fprintf(stderr, "done2\n");
-    //printf("%s", data);
 
     return data;
   }
