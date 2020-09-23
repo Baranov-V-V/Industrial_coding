@@ -1,9 +1,8 @@
-#pragma once
 
 #include "Gamlet_header.h"
 
 void Change_Char(char* text, size_t text_size, char old_c, char new_c) {
-    assert(text);
+    assert(text != NULL);
     assert(text_size >= 0);
 
     int i = 0;
@@ -16,6 +15,7 @@ void Change_Char(char* text, size_t text_size, char old_c, char new_c) {
 
 size_t Get_Lines_Count(char* text, size_t text_size) {
     assert(text != NULL);
+    assert(text_size > 0);
 
     int i = 0;
     size_t lines_count = 0;
@@ -45,3 +45,9 @@ void Make_Line_pointers(char** line_pointers, char* text, size_t text_size) {
 
 }
 
+void FreeALL(char* data, char** p_arr) {
+
+    free(data);        data = NULL;
+    free(p_arr);    p_arr = NULL;
+
+}

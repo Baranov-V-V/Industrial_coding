@@ -1,14 +1,10 @@
-#pragma once
 
 #include "Gamlet_header.h"
-#include "String_sort.c"
-#include "Gamlet_Edit.c"
-#include "Gamlet_Read&Write.c"
 
 /*!
-Функция печати ошибок и аварийного завершения программы
-\param[in] arg это обычно выражение, которое равно 0 если условие выполнилось
-\param[in] Test_name - название теста, которое будет выводится в stderr при срабатывании теста
+Р¤СѓРЅРєС†РёСЏ РїРµС‡Р°С‚Рё РѕС€РёР±РѕРє Рё Р°РІР°СЂРёР№РЅРѕРіРѕ Р·Р°РІРµСЂС€РµРЅРёСЏ РїСЂРѕРіСЂР°РјРјС‹
+\param[in] arg СЌС‚Рѕ РѕР±С‹С‡РЅРѕ РІС‹СЂР°Р¶РµРЅРёРµ, РєРѕС‚РѕСЂРѕРµ СЂР°РІРЅРѕ 0 РµСЃР»Рё СѓСЃР»РѕРІРёРµ РІС‹РїРѕР»РЅРёР»РѕСЃСЊ
+\param[in] Test_name - РЅР°Р·РІР°РЅРёРµ С‚РµСЃС‚Р°, РєРѕС‚РѕСЂРѕРµ Р±СѓРґРµС‚ РІС‹РІРѕРґРёС‚СЃСЏ РІ stderr РїСЂРё СЃСЂР°Р±Р°С‚С‹РІР°РЅРёРё С‚РµСЃС‚Р°
 \return void
 */
 void PrintError(int arg, char* Test_name) {
@@ -22,11 +18,11 @@ void PrintError(int arg, char* Test_name) {
 }
 
 /*!
-Сравнивает два массива указателей одинакогой длины на идентичность
-\param[in] arr1 первый массив для сравнения
-\param[in] arr2 второй массив для сравнения
-\param[in] arr_size длина этих двух массивов (она должна совпадать у arr1 и arr2)
-\return 1, если они равны, 0 в противном случае
+РЎСЂР°РІРЅРёРІР°РµС‚ РґРІР° РјР°СЃСЃРёРІР° СѓРєР°Р·Р°С‚РµР»РµР№ РѕРґРёРЅР°РєРѕРіРѕР№ РґР»РёРЅС‹ РЅР° РёРґРµРЅС‚РёС‡РЅРѕСЃС‚СЊ
+\param[in] arr1 РїРµСЂРІС‹Р№ РјР°СЃСЃРёРІ РґР»СЏ СЃСЂР°РІРЅРµРЅРёСЏ
+\param[in] arr2 РІС‚РѕСЂРѕР№ РјР°СЃСЃРёРІ РґР»СЏ СЃСЂР°РІРЅРµРЅРёСЏ
+\param[in] arr_size РґР»РёРЅР° СЌС‚РёС… РґРІСѓС… РјР°СЃСЃРёРІРѕРІ (РѕРЅР° РґРѕР»Р¶РЅР° СЃРѕРІРїР°РґР°С‚СЊ Сѓ arr1 Рё arr2)
+\return 1, РµСЃР»Рё РѕРЅРё СЂР°РІРЅС‹, 0 РІ РїСЂРѕС‚РёРІРЅРѕРј СЃР»СѓС‡Р°Рµ
 !*/
 int IsEqual(char** arr1, char** arr2, size_t arr_size) {
     int i;
@@ -40,8 +36,8 @@ int IsEqual(char** arr1, char** arr2, size_t arr_size) {
 }
 
 /*!
-Тестирует функцию swap_strings_arr
-Про нее см. в файле Gamlet_header.h
+РўРµСЃС‚РёСЂСѓРµС‚ С„СѓРЅРєС†РёСЋ swap_strings_arr
+РџСЂРѕ РЅРµРµ СЃРј. РІ С„Р°Р№Р»Рµ Gamlet_header.h
 !*/
 void Test_swap_strings_arr(void) {
     char* test_arr[3] = { "abba", "baab", "abab" };
@@ -51,8 +47,8 @@ void Test_swap_strings_arr(void) {
 }
 
 /*!
-Тестирует функцию String_comp
-Про нее см. в файле Gamlet_header.h
+РўРµСЃС‚РёСЂСѓРµС‚ С„СѓРЅРєС†РёСЋ String_comp
+РџСЂРѕ РЅРµРµ СЃРј. РІ С„Р°Р№Р»Рµ Gamlet_header.h
 !*/
 void Test_String_comp(void) {
     char* test_string1 = "ab,/2  b,a  ,k   rwe";
@@ -62,8 +58,8 @@ void Test_String_comp(void) {
 }
 
 /*!
-Тестирует функцию Reserved_String_comp
-Про нее см. в файле Gamlet_header.h
+РўРµСЃС‚РёСЂСѓРµС‚ С„СѓРЅРєС†РёСЋ Reserved_String_comp
+РџСЂРѕ РЅРµРµ СЃРј. РІ С„Р°Р№Р»Рµ Gamlet_header.h
 !*/
 void Test_Reversed_String_comp(void) {
     char* test_string1 = "tre425w a; , 8*9b   b,,5,[a";
@@ -73,8 +69,8 @@ void Test_Reversed_String_comp(void) {
 }
 
 /*!
-Тестирует функцию Quick_Sort
-Про нее см. в файле Gamlet_header.h
+РўРµСЃС‚РёСЂСѓРµС‚ С„СѓРЅРєС†РёСЋ Quick_Sort
+РџСЂРѕ РЅРµРµ СЃРј. РІ С„Р°Р№Р»Рµ Gamlet_header.h
 !*/
 void Test_Quick_Sort(void) {
 
@@ -90,8 +86,8 @@ void Test_Quick_Sort(void) {
 }
 
 /*!
-Тестирует функцию Change_Char
-Про нее см. в файле Gamlet_header.h
+РўРµСЃС‚РёСЂСѓРµС‚ С„СѓРЅРєС†РёСЋ Change_Char
+РџСЂРѕ РЅРµРµ СЃРј. РІ С„Р°Р№Р»Рµ Gamlet_header.h
 !*/
 void Test_Change_Char(void) {
     char test_text[] = "abba";
@@ -102,23 +98,23 @@ void Test_Change_Char(void) {
 }
 
 /*!
-Тестирует функцию Get_Lines_Count
-Про нее см. в файле Gamlet_header.h
+РўРµСЃС‚РёСЂСѓРµС‚ С„СѓРЅРєС†РёСЋ Get_Lines_Count
+РџСЂРѕ РЅРµРµ СЃРј. РІ С„Р°Р№Р»Рµ Gamlet_header.h
 !*/
 void Test_Get_Lines_Count(void) {
     char test_text[] = "vbwrv\0ejhuc;we\0wen\0fe,.w\0\0";
-    size_t length = 26;      //руками посчитать в строке
+    size_t length = 26;      //СЂСѓРєР°РјРё РїРѕСЃС‡РёС‚Р°С‚СЊ РІ СЃС‚СЂРѕРєРµ
 
     PrintError( Get_Lines_Count(test_text, length) != 5, "Test_Get_Lines_Count");
 }
 
 /*!
-Тестирует функцию Make_Line_Pointers
-Про нее см. в файле Gamlet_header.h
+РўРµСЃС‚РёСЂСѓРµС‚ С„СѓРЅРєС†РёСЋ Make_Line_Pointers
+РџСЂРѕ РЅРµРµ СЃРј. РІ С„Р°Р№Р»Рµ Gamlet_header.h
 !*/
 void Test_Make_Line_Pointers(void) {
     char test_text[] = "vbwrv\0ejhuc;we\0wen\0fe,.w\0\0";
-    size_t length = 26;      //руками посчитать в строке
+    size_t length = 26;      //СЂСѓРєР°РјРё РїРѕСЃС‡РёС‚Р°С‚СЊ РІ СЃС‚СЂРѕРєРµ
     char* test_line_pointers_correct[] = { "vbwrv\0", "ejhuc;we\0", "wen\0", "fe,.w\0", "\0" };
 
     char** test_line_pointers = (char**) calloc(5, sizeof(char*));
@@ -128,7 +124,7 @@ void Test_Make_Line_Pointers(void) {
 }
 
 /*!
-Вызывает все тестирующие функции
+Р’С‹Р·С‹РІР°РµС‚ РІСЃРµ С‚РµСЃС‚РёСЂСѓСЋС‰РёРµ С„СѓРЅРєС†РёРё
 !*/
 void Test_All(void) {
     Test_swap_strings_arr();

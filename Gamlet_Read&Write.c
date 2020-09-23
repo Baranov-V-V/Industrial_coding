@@ -1,4 +1,3 @@
-#pragma once
 
 #include "Gamlet_header.h"
 
@@ -43,11 +42,11 @@ char* Get_Text(char* file_name, char* data, int* text_size) {
 
     ASSERT_ERROR(fp, NULL, "Cannot open file");
 
-    data = (char*) calloc(file_length + 1, sizeof(char));
+    data = (char*) calloc(file_length, sizeof(char));
 
     ASSERT_ERROR(data, NULL, "Can not allocate memory!");
 
-    int obj_read = fread(data, sizeof(char), file_length + 1, fp);
+    int obj_read = fread(data, sizeof(char), file_length, fp);
     //fprintf(stderr, "done1\n");
     data[obj_read - 1] = '\0';
     *text_size = obj_read;
@@ -57,17 +56,17 @@ char* Get_Text(char* file_name, char* data, int* text_size) {
     return data;
   }
 
-void Sort_Write(char** line_pointers, int lines_count, char* type_sort, char* file_name, char* type_write) {
-    if ( type_sort == "Normal") {
+void Sort_Write(char** line_pointers, int lines_count, char type_sort, char* file_name, char* type_write) {
+    if ( type_sort == 'n') {
         Quick_Sort(line_pointers, 0, lines_count - 1,  String_comp);
         Write_Sorted_Text(line_pointers, lines_count, file_name, type_write);
     }
-    else if ( type_sort == "Reserved" ) {
+    else if ( type_sort == 'r' ) {
         Quick_Sort(line_pointers, 0, lines_count - 1, Reversed_String_comp);
         Write_Sorted_Text(line_pointers, lines_count, file_name, type_write);
     }
     else {
-        fprintf(stderr, "Can't detect type of sort\n");
+        fprintf(stderr,"Wrong type of sort");
         exit(1);
     }
 }
