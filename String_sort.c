@@ -1,86 +1,60 @@
-
 #include "Gamlet_header.h"
 
-void swap_strings_arr(char** v, int i, int j) {
-    assert(i >= 0);
-    assert(j >= 0);
-
-    char* tmp;
-
-    tmp = v[i];
-    v[i] = v[j];
-    v[j] = tmp;
-}
-
-int String_comp(char* lhs, char* rhs) {
+int String_comp(struct upd_str* lhs, struct upd_str* rhs) {
     assert(lhs != NULL);
     assert(rhs != NULL);
 
     int lhs_pos = 0;
     int rhs_pos = 0;
 
-    while (lhs[lhs_pos] !='\0' && rhs[rhs_pos] != '\0') {
-        if ( !isalpha(lhs[lhs_pos]) ) {
+    while (lhs_pos != lhs->length && rhs_pos != rhs->length) {
+        if ( !isalpha( (lhs->value)[lhs_pos] ) ) {
             lhs_pos++;
             continue;
         }
-        if ( !isalpha(rhs[rhs_pos]) ) {
+        if ( !isalpha( (rhs->value)[rhs_pos] ) ) {
             rhs_pos++;
             continue;
         }
 
-        if( tolower(lhs[lhs_pos]) > tolower(rhs[rhs_pos]) ) {
-            return 1;
-        }
-        else if ( tolower(lhs[lhs_pos]) < tolower(rhs[rhs_pos]) ) {
-            return 0;
+        if( tolower( (lhs->value)[lhs_pos] ) != tolower( (rhs->value)[rhs_pos] ) ) {
+            return tolower( (lhs->value)[lhs_pos] ) - tolower( (rhs->value)[rhs_pos] );
         }
         rhs_pos++;
         lhs_pos++;
     }
-    if (lhs[lhs_pos] == '\0') {
-        return 0;
-    }
-    else {
-        return 1;
-    }
+
+    return 0;
 }
 
-int Reversed_String_comp(char* lhs, char* rhs) {
+int Reversed_String_comp(struct upd_str* lhs, struct upd_str* rhs) {
     assert(lhs != NULL);
     assert(rhs != NULL);
 
-    int lhs_pos = strlen(lhs) - 1;
-    int rhs_pos = strlen(rhs) - 1;
+    int lhs_pos = lhs->length;
+    int rhs_pos = rhs->length;
 
     while (lhs_pos >= 0 && rhs_pos >= 0) {
-        if ( !isalpha(lhs[lhs_pos]) ) {
+        if ( !isalpha( (lhs->value)[lhs_pos] ) ) {
             lhs_pos--;
             continue;
         }
-        if ( !isalpha(rhs[rhs_pos]) ) {
+        if ( !isalpha( (rhs->value)[rhs_pos] ) ) {
             rhs_pos--;
             continue;
         }
 
-        if( tolower(lhs[lhs_pos]) > tolower(rhs[rhs_pos]) ) {
-            return 1;
-        }
-        else if( tolower(lhs[lhs_pos]) < tolower(rhs[rhs_pos]) ) {
-            return 0;
+        if( tolower( (lhs->value)[lhs_pos] ) != tolower( (rhs->value)[rhs_pos] ) ) {
+            return tolower( (lhs->value)[lhs_pos] ) - tolower( (rhs->value)[rhs_pos] );
         }
         rhs_pos--;
         lhs_pos--;
     }
-    if (lhs_pos == 0) {
-        return 0;
-    }
-    else {
-        return 1;
-    }
+
+    return 0;
 }
 
-void Quick_Sort(char** arr, int left_pos, int right_pos, int (*comp)(char* lhs, char* rhs)) {
+void Quick_Sort(struct upd_str* arr, int left_pos, int right_pos, int (*comp)(struct upd_str* lhs, struct upd_str* rhs)) {
     int last = 0;
     int i = 0;
 
@@ -88,16 +62,14 @@ void Quick_Sort(char** arr, int left_pos, int right_pos, int (*comp)(char* lhs, 
         return;
     }
 
-    if ( right_pos - left_pos == 1) {
-        if ( (*comp)(arr[left_pos], arr[right_pos]) == 0 ) {
-            swap_strings_arr(arr, left_pos, right_pos);
-        }
+    if (right_pos - left_pos == 1 && ( (*comp)(arr + left_pos, arr + right_pos) < 0 )) {
+        swap_strings_arr(arr, left_pos, right_pos);
     }
     swap_strings_arr(arr, left_pos, (left_pos + right_pos) / 2);
     last = left_pos;
 
     for (i = left_pos + 1; i <= right_pos; i++) {
-        if ( (*comp)(arr[i], arr[left_pos]) == 0 ) {
+        if ( (*comp)(arr + i, arr + left_pos) < 0 ) {
             swap_strings_arr(arr, ++last, i);
         }
     }
@@ -106,4 +78,18 @@ void Quick_Sort(char** arr, int left_pos, int right_pos, int (*comp)(char* lhs, 
 
     Quick_Sort(arr, left_pos, last - 1, comp);
     Quick_Sort(arr, last + 1, right_pos, comp);
+}
+
+void swap_strings_arr(struct upd_str* arr, int i, int j) {
+    assert(i >= 0);
+    assert(j >= 0);
+
+    struct upd_str tmp;
+
+    tmp.length = (arr + i)->length;
+    tmp.value = (arr + i)-> value;
+    (arr + i)->length = (arr + j)->length;
+    (arr + i)->value = (arr + j)-> value;
+    (arr + j)->length = tmp.length;
+    (arr + j)->value = tmp.value;
 }

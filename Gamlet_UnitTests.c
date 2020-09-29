@@ -2,9 +2,9 @@
 #include "Gamlet_header.h"
 
 /*!
-Р¤СѓРЅРєС†РёСЏ РїРµС‡Р°С‚Рё РѕС€РёР±РѕРє Рё Р°РІР°СЂРёР№РЅРѕРіРѕ Р·Р°РІРµСЂС€РµРЅРёСЏ РїСЂРѕРіСЂР°РјРјС‹
-\param[in] arg СЌС‚Рѕ РѕР±С‹С‡РЅРѕ РІС‹СЂР°Р¶РµРЅРёРµ, РєРѕС‚РѕСЂРѕРµ СЂР°РІРЅРѕ 0 РµСЃР»Рё СѓСЃР»РѕРІРёРµ РІС‹РїРѕР»РЅРёР»РѕСЃСЊ
-\param[in] Test_name - РЅР°Р·РІР°РЅРёРµ С‚РµСЃС‚Р°, РєРѕС‚РѕСЂРѕРµ Р±СѓРґРµС‚ РІС‹РІРѕРґРёС‚СЃСЏ РІ stderr РїСЂРё СЃСЂР°Р±Р°С‚С‹РІР°РЅРёРё С‚РµСЃС‚Р°
+Функция печати ошибок и аварийного завершения программы
+\param[in] arg это обычно выражение, которое равно 0 если условие выполнилось
+\param[in] Test_name - название теста, которое будет выводится в stderr при срабатывании теста
 \return void
 */
 void PrintError(int arg, char* Test_name) {
@@ -16,19 +16,18 @@ void PrintError(int arg, char* Test_name) {
         fprintf(stderr,"%s: Passed\n", Test_name);
     }
 }
-
 /*!
-РЎСЂР°РІРЅРёРІР°РµС‚ РґРІР° РјР°СЃСЃРёРІР° СѓРєР°Р·Р°С‚РµР»РµР№ РѕРґРёРЅР°РєРѕРіРѕР№ РґР»РёРЅС‹ РЅР° РёРґРµРЅС‚РёС‡РЅРѕСЃС‚СЊ
-\param[in] arr1 РїРµСЂРІС‹Р№ РјР°СЃСЃРёРІ РґР»СЏ СЃСЂР°РІРЅРµРЅРёСЏ
-\param[in] arr2 РІС‚РѕСЂРѕР№ РјР°СЃСЃРёРІ РґР»СЏ СЃСЂР°РІРЅРµРЅРёСЏ
-\param[in] arr_size РґР»РёРЅР° СЌС‚РёС… РґРІСѓС… РјР°СЃСЃРёРІРѕРІ (РѕРЅР° РґРѕР»Р¶РЅР° СЃРѕРІРїР°РґР°С‚СЊ Сѓ arr1 Рё arr2)
-\return 1, РµСЃР»Рё РѕРЅРё СЂР°РІРЅС‹, 0 РІ РїСЂРѕС‚РёРІРЅРѕРј СЃР»СѓС‡Р°Рµ
+Сравнивает два массива указателей одинакогой длины на идентичность
+\param[in] arr1 первый массив для сравнения
+\param[in] arr2 второй массив для сравнения
+\param[in] arr_size длина этих двух массивов (она должна совпадать у arr1 и arr2)
+\return 1, если они равны, 0 в противном случае
 !*/
-int IsEqual(char** arr1, char** arr2, size_t arr_size) {
+int IsEqual(struct upd_str* arr1, struct upd_str* arr2, size_t arr_size) {
     int i;
     for(i = 0; i < arr_size; i++) {
-        if ( strcmp(arr1[i], arr2[i]) != 0 ) {
-            fprintf(stderr, "%s != %s\n", arr1[i], arr2[i]);
+        if ( strcmp((arr1 + i)->value, (arr2 + i)->value) != 0 || (arr1 + i)->length != (arr2 + i)->length ) {
+            fprintf(stderr, "<%s>, %d != <%s>, %d\n", (arr1 + i)->value, (arr1 + i)->length, (arr2 + i)->value, (arr2 + i)->length);
             return 0;
         }
     }
@@ -36,49 +35,74 @@ int IsEqual(char** arr1, char** arr2, size_t arr_size) {
 }
 
 /*!
-РўРµСЃС‚РёСЂСѓРµС‚ С„СѓРЅРєС†РёСЋ swap_strings_arr
-РџСЂРѕ РЅРµРµ СЃРј. РІ С„Р°Р№Р»Рµ Gamlet_header.h
+Тестирует функцию swap_strings_arr
+Про нее см. в файле Gamlet_header.h
 !*/
 void Test_swap_strings_arr(void) {
-    char* test_arr[3] = { "abba", "baab", "abab" };
+    struct upd_str test_str1;
+    struct upd_str test_str2;
+
+    test_str1.value = "abba";
+    test_str1.length = 4;
+    test_str2.value = "baab";
+    test_str2.length = 4;
+    struct upd_str test_arr[] = {test_str1, test_str2};
     swap_strings_arr(test_arr, 0, 1);
 
-    PrintError( strcmp(test_arr[0], "baab") != 0 || strcmp(test_arr[1], "abba") != 0, "Test_swap_strings_arr");
+    PrintError( strcmp(test_arr[0].value, "baab") != 0 || strcmp(test_arr[1].value, "abba") != 0, "Test_swap_strings_arr");
 }
 
 /*!
-РўРµСЃС‚РёСЂСѓРµС‚ С„СѓРЅРєС†РёСЋ String_comp
-РџСЂРѕ РЅРµРµ СЃРј. РІ С„Р°Р№Р»Рµ Gamlet_header.h
+Тестирует функцию String_comp
+Про нее см. в файле Gamlet_header.h
 !*/
 void Test_String_comp(void) {
-    char* test_string1 = "ab,/2  b,a  ,k   rwe";
-    char* test_string2 = "a,,3  !b  1,b,a,  ,.'a tbrt";
+    struct upd_str test_str1;
+    struct upd_str test_str2;
 
-    PrintError( String_comp(test_string1, test_string2) != 1, "Test_String_comp");
+    test_str1.value = "ab,/2  b,a  ,k   rwe";
+    test_str1.length = strlen(test_str1.value);
+    test_str2.value = "a,,3  !b  1,b,a,  ,.'a tbrt";
+    test_str2.length = strlen(test_str2.value);
+
+    PrintError( String_comp(&test_str1, &test_str2) < 0, "Test_String_comp");
 }
 
 /*!
-РўРµСЃС‚РёСЂСѓРµС‚ С„СѓРЅРєС†РёСЋ Reserved_String_comp
-РџСЂРѕ РЅРµРµ СЃРј. РІ С„Р°Р№Р»Рµ Gamlet_header.h
+Тестирует функцию Reserved_String_comp
+Про нее см. в файле Gamlet_header.h
 !*/
 void Test_Reversed_String_comp(void) {
-    char* test_string1 = "tre425w a; , 8*9b   b,,5,[a";
-    char* test_string2 = "t4349*5a5 a; , 8.,*9b, ?  b,5[a";
 
-    PrintError( Reversed_String_comp(test_string1, test_string2) != 1, "Test_Reversed_String_comp");
+    struct upd_str test_str1;
+    struct upd_str test_str2;
+
+    test_str1.value = "Who is't  'that can in''form ;'me'? 95";
+    test_str1.length = strlen(test_str1.value);
+    test_str2.value = "When he th' ambitious Norway  com'ba  te'd'   .";
+    test_str2.length = strlen(test_str2.value);
+    PrintError( Reversed_String_comp(&test_str1, &test_str2) < 0, "Test_Reversed_String_comp");
 }
 
 /*!
-РўРµСЃС‚РёСЂСѓРµС‚ С„СѓРЅРєС†РёСЋ Quick_Sort
-РџСЂРѕ РЅРµРµ СЃРј. РІ С„Р°Р№Р»Рµ Gamlet_header.h
+Тестирует функцию Quick_Sort
+Про нее см. в файле Gamlet_header.h
 !*/
 void Test_Quick_Sort(void) {
 
-    char* s1 = "a,.  ;b.,b  .k";
-    char* s2 = ",.   a;;a, a. ,.k";
-    char* s3 = " a ,.b ,.b :;a  ;";
-    char* test_arr[3] = {s1, s2, s3};
-    char* test_arr_correct[3] = {s2, s3, s1};
+    struct upd_str test_str1;
+    struct upd_str test_str2;
+    struct upd_str test_str3;
+
+    test_str1.value = "abbauytg\0";
+    test_str1.length = 8;
+    test_str2.value = "baab\0";
+    test_str2.length = 4;
+    test_str3.value = "aakkb\0";
+    test_str3.length = 5;
+
+    struct upd_str test_arr[] = {test_str2, test_str3, test_str1};
+    struct upd_str test_arr_correct[] = {test_str3, test_str1, test_str2};
 
     Quick_Sort(test_arr, 0, 2, String_comp);
 
@@ -86,8 +110,8 @@ void Test_Quick_Sort(void) {
 }
 
 /*!
-РўРµСЃС‚РёСЂСѓРµС‚ С„СѓРЅРєС†РёСЋ Change_Char
-РџСЂРѕ РЅРµРµ СЃРј. РІ С„Р°Р№Р»Рµ Gamlet_header.h
+Тестирует функцию Change_Char
+Про нее см. в файле Gamlet_header.h
 !*/
 void Test_Change_Char(void) {
     char test_text[] = "abba";
@@ -98,33 +122,50 @@ void Test_Change_Char(void) {
 }
 
 /*!
-РўРµСЃС‚РёСЂСѓРµС‚ С„СѓРЅРєС†РёСЋ Get_Lines_Count
-РџСЂРѕ РЅРµРµ СЃРј. РІ С„Р°Р№Р»Рµ Gamlet_header.h
+Тестирует функцию Get_Lines_Count
+Про нее см. в файле Gamlet_header.h
 !*/
 void Test_Get_Lines_Count(void) {
     char test_text[] = "vbwrv\0ejhuc;we\0wen\0fe,.w\0\0";
-    size_t length = 26;      //СЂСѓРєР°РјРё РїРѕСЃС‡РёС‚Р°С‚СЊ РІ СЃС‚СЂРѕРєРµ
+    size_t length = 26;
 
     PrintError( Get_Lines_Count(test_text, length) != 5, "Test_Get_Lines_Count");
 }
 
 /*!
-РўРµСЃС‚РёСЂСѓРµС‚ С„СѓРЅРєС†РёСЋ Make_Line_Pointers
-РџСЂРѕ РЅРµРµ СЃРј. РІ С„Р°Р№Р»Рµ Gamlet_header.h
+Тестирует функцию Make_Line_Pointers
+Про нее см. в файле Gamlet_header.h
 !*/
 void Test_Make_Line_Pointers(void) {
     char test_text[] = "vbwrv\0ejhuc;we\0wen\0fe,.w\0\0";
-    size_t length = 26;      //СЂСѓРєР°РјРё РїРѕСЃС‡РёС‚Р°С‚СЊ РІ СЃС‚СЂРѕРєРµ
-    char* test_line_pointers_correct[] = { "vbwrv\0", "ejhuc;we\0", "wen\0", "fe,.w\0", "\0" };
+    size_t length = 26;
 
-    char** test_line_pointers = (char**) calloc(5, sizeof(char*));
+    struct upd_str test_str1;
+    struct upd_str test_str2;
+    struct upd_str test_str3;
+    struct upd_str test_str4;
+    struct upd_str test_str5;
+
+    test_str1.value = "vbwrv\0";
+    test_str1.length = strlen(test_str1.value);
+    test_str2.value = "ejhuc;we\0";
+    test_str2.length = strlen(test_str2.value);
+    test_str3.value = "wen\0";
+    test_str3.length = strlen(test_str3.value);
+    test_str4.value = "fe,.w\0";
+    test_str4.length = strlen(test_str4.value);
+    test_str5.value = "\0";
+    test_str5.length = strlen(test_str5.value);
+    struct upd_str test_line_pointers_correct[] = {test_str1, test_str2, test_str3, test_str4, test_str5};
+
+    struct upd_str* test_line_pointers = (struct upd_str*) calloc(5, sizeof(struct upd_str));
     Make_Line_pointers(test_line_pointers, test_text, length);
 
-    PrintError( IsEqual(test_line_pointers_correct, test_line_pointers, 5) != 1, "Make_Line_pointers");
+    PrintError( IsEqual(test_line_pointers, test_line_pointers_correct, 5) != 1, "Make_Line_pointers");
 }
 
 /*!
-Р’С‹Р·С‹РІР°РµС‚ РІСЃРµ С‚РµСЃС‚РёСЂСѓСЋС‰РёРµ С„СѓРЅРєС†РёРё
+Вызывает все тестирующие функции
 !*/
 void Test_All(void) {
     Test_swap_strings_arr();
